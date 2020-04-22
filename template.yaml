@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  DSPASSWORD:
+    Type: String
+    Description: "Admin password for SimpleAD instance"
+Resources:
+  DSPIONEER:
+    Type: 'AWS::DirectoryService::SimpleAD'
+    Properties:
+      Name: 'piohack.thehyve.net'
+      Password:
+        Ref: 'DSPASSWORD'
+      Size: 'Small'
+      VpcSettings:
+        SubnetIds:
+        - Ref: 'EC2SPIONEER'
+        VpcId:
+          Ref: 'EC2VPCPIONEER'
+  EC2VPCPIONEER:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: '10.0.0.0/16'
+  EC2SPIONEER:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId:
+        Ref: 'EC2VPCPIONEER'
+      CidrBlock: '10.0.1.0/24'
