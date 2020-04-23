@@ -3,7 +3,7 @@ provider "aws" {}
 
 # Definition of variables
 variable "ds_admin_pass" {
-  type = sting
+  type = string
   description = "DC Administrator password"
 }
 
