@@ -7,22 +7,47 @@ Resources:
   DSPIONEER:
     Type: 'AWS::DirectoryService::SimpleAD'
     Properties:
+      #CreateAlias: true
+      #EnableSso: true
       Name: 'piohack.thehyve.net'
       Password:
         Ref: DSPASSWORD
       Size: 'Small'
       VpcSettings:
         SubnetIds:
-        - Ref: EC2SPIONEER
+        - Ref: EC2SPIONEER01
+        - Ref: EC2SPIONEER02
         VpcId:
           Ref: EC2VPCPIONEER
   EC2VPCPIONEER:
     Type: 'AWS::EC2::VPC'
     Properties:
       CidrBlock: '10.0.0.0/16'
-  EC2SPIONEER:
+  EC2SPIONEER00:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId:
+        Ref: EC2VPCPIONEER
+      CidrBlock: '10.0.0.0/24'
+      AvailabilityZone: 'eu-west-1a'
+  EC2SPIONEER01:
     Type: 'AWS::EC2::Subnet'
     Properties:
       VpcId:
         Ref: EC2VPCPIONEER
       CidrBlock: '10.0.1.0/24'
+      AvailabilityZone: 'eu-west-1b'
+  EC2SPIONEER02:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId:
+        Ref: EC2VPCPIONEER
+      CidrBlock: '10.0.2.0/24'
+      AvailabilityZone: 'eu-west-1c'
+  WSWPIONEERAdministrator:
+    Type: 'AWS::WorkSpaces::Workspace'
+    Properties:
+      BundleId: 'wsb-gm4d5tx2v'
+      DirectoryId:
+        Ref: DSPIONEER
+      UserName: 'Administrator'
