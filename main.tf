@@ -8,7 +8,7 @@ variable "ds_admin_pass" {
 }
 
 # Find ami id
-data "aws_ami" "amazon2" {
+data "aws_ami" "AMAZON2" {
   owners = ["amazon"]
   most_recent = true
   filter {
@@ -24,6 +24,11 @@ data "aws_ami" "amazon2" {
 # Resources definiton
 resource "aws_vpc" "EC2VPCPIONEER" {
   cidr_block = "10.0.0.0/16"
+}
+resource "aws_subnet" "EC2SPIONEER00" {
+  vpc_id = aws_vpc.EC2VPCPIONEER.id
+  cidr_block = "10.0.0.0/24"
+  availability_zone = "eu-west-1a"
 }
 resource "aws_subnet" "EC2SPIONEER01" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
@@ -49,4 +54,9 @@ resource "aws_directory_service_directory" "DSPIONEER" {
 }
 resource "aws_workspaces_directory" "WSWPIONEER" {
   directory_id = aws_directory_service_directory.DSPIONEER.id
+}
+resource "aws_instance" "EC2PIONEER" {
+  ami = data.aws_ami.AMAZON2.id
+  instance_type = "m5.16xlarge"
+  subnet_id = aws_subnet.EC2SPIONEER00.id
 }
