@@ -14,10 +14,12 @@ resource "aws_vpc" "EC2VPCPIONEER" {
 resource "aws_subnet" "EC2SPIONEER01" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   cidr_block = "10.0.1.0/24"
+  availability_zone = 'eu-west-1b'
 }
 resource "aws_subnet" "EC2SPIONEER02" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   cidr_block = "10.0.2.0/24"
+  availability_zone = 'eu-west-1c'
 }
 resource "aws_directory_service_directory" "DSPIONEER" {
   name = "piohack.thehyve.net"
