@@ -7,6 +7,20 @@ variable "ds_admin_pass" {
   description = "DC Administrator password"
 }
 
+# Find ami id
+data "aws_ami" "amazon2" {
+  owners = ["amazon"]
+  most_recent = true
+  filter {
+    name = "name"
+    values = ["amzn2-ami-hvm-2.0.????????.?-x86_64-gp2"]
+  }
+  filter {
+    name = "state"
+    values = ["available"]
+  }
+}
+
 # Resources definiton
 resource "aws_vpc" "EC2VPCPIONEER" {
   cidr_block = "10.0.0.0/16"
