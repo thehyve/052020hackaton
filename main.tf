@@ -31,7 +31,7 @@ resource "aws_security_group" "SSH" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port = 0
+    from_port = 22
     protocol = 6
     to_port = 22
   }
