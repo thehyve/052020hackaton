@@ -6,6 +6,10 @@ variable "ds_admin_pass" {
   type = string
   description = "DC Administrator password"
 }
+variable "sas_pool" {
+  type = string
+  description = "IP address pool of SAS"
+}
 
 # Find ami id
 data "aws_ami" "AMAZON2" {
@@ -25,15 +29,15 @@ data "aws_ami" "AMAZON2" {
 resource "aws_vpc" "EC2VPCPIONEER" {
   cidr_block = "10.0.0.0/16"
 }
-resource "aws_security_group" "SSH" {
-  name = "allow_ssh"
-  description = "Allow incomming ssh traffic"
+resource "aws_security_group" "SAS" {
+  name = "allow_sas"
+  description = "Allow incomming traffic from sas"
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 22
-    protocol = 6
-    to_port = 22
+    cidr_blocks = [var.sas_pool]
+    from_port = 0
+    protocol = 0
+    to_port = -1
   }
 }
 resource "aws_internet_gateway" "GW" {
@@ -80,10 +84,10 @@ resource "aws_workspaces_directory" "WSWPIONEER" {
 resource "aws_instance" "EC2SAS" {
   ami = data.aws_ami.AMAZON2.id
   instance_type = "m5.16xlarge"
-  key_name = "artur"
+  key_name = "viyadep"
   vpc_security_group_ids  = [
     aws_vpc.EC2VPCPIONEER.default_security_group_id,
-    aws_security_group.SSH.id
+    aws_security_group.SAS.id
   ]
   subnet_id = aws_subnet.EC2SPIONEER00.id
   depends_on = [aws_internet_gateway.GW]
