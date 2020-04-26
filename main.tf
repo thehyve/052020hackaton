@@ -62,6 +62,17 @@ resource "aws_security_group" "HTTPS" {
     protocol = 6
   }
 }
+resource "aws_security_group" "ALL" {
+  name = "allow_all"
+  description = "Allow all incomming traffic"
+  vpc_id = aws_vpc.EC2VPCPIONEER.id
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 0
+    protocol = -1
+    to_port = 0
+  }
+}
 resource "aws_internet_gateway" "GW" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
 }
