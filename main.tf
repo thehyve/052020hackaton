@@ -30,7 +30,7 @@ resource "aws_security_group" "SSH" {
   description = "Allow incomming ssh traffic"
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = ["0.0.0.0/0"]
     from_port = 0
     protocol = 6
     to_port = 22
