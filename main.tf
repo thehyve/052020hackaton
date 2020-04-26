@@ -40,6 +40,28 @@ resource "aws_security_group" "SAS" {
     to_port = 0
   }
 }
+resource "aws_security_group" "HTTP" {
+  name = "allow_http"
+  description = "Allow incomming http traffic"
+  vpc_id = aws_vpc.EC2VPCPIONEER.id
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
+    protocol = 6
+  }
+}
+resource "aws_security_group" "HTTPS" {
+  name = "allow_https"
+  description = "Allow incomming https traffic"
+  vpc_id = aws_vpc.EC2VPCPIONEER.id
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 443
+    to_port = 443
+    protocol = 6
+  }
+}
 resource "aws_internet_gateway" "GW" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
 }
