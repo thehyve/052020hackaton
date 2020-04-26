@@ -75,6 +75,6 @@ resource "aws_instance" "EC2SAS" {
 }
 resource "aws_eip" "EIPSAS" {
   vpc = true
-  instance = aws_instance.WSWPIONEER.id
+  instance = aws_instance.EC2SAS.id
   depends_on = [aws_internet_gateway.GW]
 }
