@@ -121,6 +121,8 @@ resource "aws_instance" "EC2SAS" {
   vpc_security_group_ids  = [
     aws_vpc.EC2VPCPIONEER.default_security_group_id,
     aws_security_group.SAS.id
+    aws_security_group.HTTP.id
+    aws_security_group.HTTPS.id
   ]
   subnet_id = aws_subnet.EC2SPIONEER00.id
   depends_on = [aws_internet_gateway.GW]
