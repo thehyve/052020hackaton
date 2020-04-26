@@ -36,8 +36,8 @@ resource "aws_security_group" "SAS" {
   ingress {
     cidr_blocks = [var.sas_pool]
     from_port = 0
-    protocol = 0
-    to_port = -1
+    protocol = -1
+    to_port = 0
   }
 }
 resource "aws_internet_gateway" "GW" {
