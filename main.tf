@@ -139,5 +139,5 @@ resource "aws_ebs_volume" "EBSSAS" {
 resource "aws_volume_attachment" "EBS2SAS" {
   device_name = "/dev/xvdb"
   instance_id = aws_instance.EC2SAS.id
-  volume_id = aws_ebs_volume.EBS2SAS.id
+  volume_id = aws_ebs_volume.EBSSAS.id
 }
