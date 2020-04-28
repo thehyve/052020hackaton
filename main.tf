@@ -73,11 +73,6 @@ resource "aws_security_group" "HTTP" {
     to_port = 80
     protocol = 6
   }
-}
-resource "aws_security_group" "HTTPS" {
-  name = "allow_https"
-  description = "Allow incomming https traffic"
-  vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port = 443
@@ -156,7 +151,6 @@ resource "aws_instance" "EC2SAS" {
     aws_vpc.EC2VPCPIONEER.default_security_group_id,
     aws_security_group.SAS.id,
     aws_security_group.HTTP.id,
-    aws_security_group.HTTPS.id,
     aws_security_group.FREDERIK.id
   ]
   subnet_id = aws_subnet.EC2SPIONEER00.id
@@ -184,7 +178,6 @@ resource "aws_instance" "EC2SASCENTOS" {
     aws_vpc.EC2VPCPIONEER.default_security_group_id,
     aws_security_group.SAS.id,
     aws_security_group.HTTP.id,
-    aws_security_group.HTTPS.id,
     aws_security_group.JUPYTER.id,
     aws_security_group.FREDERIK.id
   ]
