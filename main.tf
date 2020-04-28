@@ -85,6 +85,17 @@ resource "aws_security_group" "HTTPS" {
     protocol = 6
   }
 }
+resource "aws_security_group" "JUPYTER" {
+  name = "allow_jupyter"
+  description = "Allow incomming https traffic"
+  vpc_id = aws_vpc.EC2VPCPIONEER.id
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 8088
+    to_port = 8088
+    protocol = 6
+  }
+}
 resource "aws_security_group" "ALL" {
   name = "allow_all"
   description = "Allow all incomming traffic"
@@ -174,6 +185,7 @@ resource "aws_instance" "EC2SASCENTOS" {
     aws_security_group.SAS.id,
     aws_security_group.HTTP.id,
     aws_security_group.HTTPS.id,
+    aws_security_group.JUPYTER.id,
     aws_security_group.FREDERIK.id
   ]
   subnet_id = aws_subnet.EC2SPIONEER00.id
