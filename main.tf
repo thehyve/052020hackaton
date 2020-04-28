@@ -28,6 +28,14 @@ data "aws_ami" "AMAZON2" {
     values = ["available"]
   }
 }
+data "aws_ami" "CENTOS" {
+  owners = ["aws-marketplace"]
+  most_recent = true
+  filter {
+    name = "roduct-code"
+    values = ["aw0evgkw8e5c1q413zgy5pjce"]
+  }
+}
 
 # Resources definiton
 resource "aws_vpc" "EC2VPCPIONEER" {
