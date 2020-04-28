@@ -32,7 +32,7 @@ data "aws_ami" "CENTOS" {
   owners = ["aws-marketplace"]
   most_recent = true
   filter {
-    name = "roduct-code"
+    name = "product-code"
     values = ["aw0evgkw8e5c1q413zgy5pjce"]
   }
 }
