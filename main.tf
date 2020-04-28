@@ -10,7 +10,7 @@ variable "sas_pool" {
   type = string
   description = "IP address pool of SAS"
 }
-variable "frederik" {
+variable "frederik_ip" {
   type = string
   description = "IP address pool of SAS"
 }
@@ -49,7 +49,7 @@ resource "aws_security_group" "FREDERIK" {
   description = "Allow incomming traffic from frederik"
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
-    cidr_blocks = [var.frederik]
+    cidr_blocks = [var.frederik_ip]
     from_port = 0
     protocol = -1
     to_port = 0
