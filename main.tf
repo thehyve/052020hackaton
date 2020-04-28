@@ -165,3 +165,31 @@ resource "aws_volume_attachment" "EBS2SAS" {
   instance_id = aws_instance.EC2SAS.id
   volume_id = aws_ebs_volume.EBSSAS.id
 }
+resource "aws_instance" "EC2SASCENTOS" {
+  ami = data.aws_ami.CENTOS.id
+  instance_type = "m5.16xlarge"
+  key_name = "viyadep"
+  vpc_security_group_ids  = [
+    aws_vpc.EC2VPCPIONEER.default_security_group_id,
+    aws_security_group.SAS.id,
+    aws_security_group.HTTP.id,
+    aws_security_group.HTTPS.id,
+    aws_security_group.FREDERIK.id
+  ]
+  subnet_id = aws_subnet.EC2SPIONEER00.id
+  depends_on = [aws_internet_gateway.GW]
+}
+resource "aws_eip" "EIPSASCENTOS" {
+  vpc = true
+  instance = aws_instance.EC2SASCENTOS.id
+  depends_on = [aws_internet_gateway.GW]
+}
+resource "aws_ebs_volume" "EBSSASCENTOS" {
+  availability_zone = "eu-west-1a"
+  size = 200
+}
+resource "aws_volume_attachment" "EBS2SASCENTOS" {
+  device_name = "/dev/xvdb"
+  instance_id = aws_instance.EC2SASCENTOS.id
+  volume_id = aws_ebs_volume.EBSSASCENTOS.id
+}
