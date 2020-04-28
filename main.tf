@@ -161,10 +161,6 @@ resource "aws_eip" "EIPSAS" {
   instance = aws_instance.EC2SAS.id
   depends_on = [aws_internet_gateway.GW]
 }
-resource "aws_ebs_volume" "EBSSAS" {
-  availability_zone = "eu-west-1a"
-  size = 200
-}
 resource "aws_instance" "EC2SASCENTOS" {
   ami = data.aws_ami.CENTOS.id
   instance_type = "m5.16xlarge"
