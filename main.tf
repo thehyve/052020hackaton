@@ -165,11 +165,6 @@ resource "aws_ebs_volume" "EBSSAS" {
   availability_zone = "eu-west-1a"
   size = 200
 }
-resource "aws_volume_attachment" "EBS2SAS" {
-  device_name = "/dev/xvdb"
-  instance_id = aws_instance.EC2SAS.id
-  volume_id = aws_ebs_volume.EBSSAS.id
-}
 resource "aws_instance" "EC2SASCENTOS" {
   ami = data.aws_ami.CENTOS.id
   instance_type = "m5.16xlarge"
