@@ -10,6 +10,10 @@ variable "sas_pool" {
   type = string
   description = "IP address pool of SAS"
 }
+variable "frederik" {
+  type = string
+  description = "IP address pool of SAS"
+}
 
 # Find ami id
 data "aws_ami" "AMAZON2" {
@@ -35,6 +39,17 @@ resource "aws_security_group" "SAS" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
     cidr_blocks = [var.sas_pool]
+    from_port = 0
+    protocol = -1
+    to_port = 0
+  }
+}
+resource "aws_security_group" "FREDERIK" {
+  name = "allow_frederik"
+  description = "Allow incomming traffic from frederik"
+  vpc_id = aws_vpc.EC2VPCPIONEER.id
+  ingress {
+    cidr_blocks = [var.frederik]
     from_port = 0
     protocol = -1
     to_port = 0
@@ -123,6 +138,7 @@ resource "aws_instance" "EC2SAS" {
     aws_security_group.SAS.id,
     aws_security_group.HTTP.id,
     aws_security_group.HTTPS.id,
+    aws_security_group.FREDERIK.id
   ]
   subnet_id = aws_subnet.EC2SPIONEER00.id
   depends_on = [aws_internet_gateway.GW]
