@@ -143,19 +143,6 @@ resource "aws_directory_service_directory" "DSPIONEER" {
 resource "aws_workspaces_directory" "WSWPIONEER" {
   directory_id = aws_directory_service_directory.DSPIONEER.id
 }
-resource "aws_instance" "EC2SAS" {
-  ami = data.aws_ami.AMAZON2.id
-  instance_type = "m5.16xlarge"
-  key_name = "viyadep"
-  vpc_security_group_ids  = [
-    aws_vpc.EC2VPCPIONEER.default_security_group_id,
-    aws_security_group.SAS.id,
-    aws_security_group.HTTP.id,
-    aws_security_group.FREDERIK.id
-  ]
-  subnet_id = aws_subnet.EC2SPIONEER00.id
-  depends_on = [aws_internet_gateway.GW]
-}
 resource "aws_instance" "EC2SASCENTOS" {
   ami = data.aws_ami.CENTOS.id
   instance_type = "m5.16xlarge"
