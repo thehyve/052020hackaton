@@ -193,3 +193,22 @@ resource "aws_volume_attachment" "EBS2SASCENTOS" {
   instance_id = aws_instance.EC2SASCENTOS.id
   volume_id = aws_ebs_volume.EBSSASCENTOS.id
 }
+resource "aws_instance" "EC2PIONEER" {
+  ami = data.aws_ami.AMAZON2.id
+  instance_type = "t3a.2xlarge"
+  key_name = "artur"
+  vpc_security_group_ids  = [
+    aws_vpc.EC2VPCPIONEER.default_security_group_id,
+    aws_security_group.ALL.id
+  ]
+  subnet_id = aws_subnet.EC2SPIONEER00.id
+  depends_on = [aws_internet_gateway.GW]
+  root_block_device {
+    volume_size = 128
+  }
+}
+resource "aws_eip" "EIPPIONEER" {
+  vpc = true
+  instance = aws_instance.EC2PIONEER.id
+  depends_on = [aws_internet_gateway.GW]
+}
