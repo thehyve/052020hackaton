@@ -156,11 +156,6 @@ resource "aws_instance" "EC2SAS" {
   subnet_id = aws_subnet.EC2SPIONEER00.id
   depends_on = [aws_internet_gateway.GW]
 }
-resource "aws_eip" "EIPSAS" {
-  vpc = true
-  instance = aws_instance.EC2SAS.id
-  depends_on = [aws_internet_gateway.GW]
-}
 resource "aws_instance" "EC2SASCENTOS" {
   ami = data.aws_ami.CENTOS.id
   instance_type = "m5.16xlarge"
