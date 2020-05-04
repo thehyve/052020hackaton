@@ -97,9 +97,9 @@ resource "aws_security_group" "ALL" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port = 0
-    protocol = -1
-    to_port = 0
+    from_port = 22
+    protocol = 6
+    to_port = 22
   }
 }
 resource "aws_internet_gateway" "GW" {
@@ -177,6 +177,7 @@ resource "aws_instance" "EC2PIONEER" {
   key_name = "artur"
   vpc_security_group_ids  = [
     aws_vpc.EC2VPCPIONEER.default_security_group_id,
+    aws_security_group.HTTP.id,
     aws_security_group.ALL.id
   ]
   subnet_id = aws_subnet.EC2SPIONEER00.id
