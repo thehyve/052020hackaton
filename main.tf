@@ -63,7 +63,7 @@ resource "aws_security_group" "FREDERIK" {
   ingress {
     cidr_blocks = [
       var.frederik_ip,
-      artur_ip
+      var.artur_ip
     ]
     from_port = 0
     protocol = -1
