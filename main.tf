@@ -57,7 +57,10 @@ resource "aws_security_group" "FREDERIK" {
   description = "Allow incomming traffic from frederik"
   vpc_id = aws_vpc.EC2VPCPIONEER.id
   ingress {
-    cidr_blocks = [var.frederik_ip]
+    cidr_blocks = [
+      var.frederik_ip,
+      artur_ip
+    ]
     from_port = 0
     protocol = -1
     to_port = 0
