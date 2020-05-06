@@ -14,6 +14,10 @@ variable "frederik_ip" {
   type = string
   description = "IP address pool of SAS"
 }
+variable "artur_ip" {
+  type = string
+  description = "IP address pool of SAS"
+}
 
 # Find ami id
 data "aws_ami" "AMAZON2" {
