@@ -101,6 +101,12 @@ resource "aws_security_group" "ALL" {
     protocol = 6
     to_port = 22
   }
+  ingress {
+    cidr_blocks = ["10.0.0.0/16"]
+    from_port = 0
+    protocol = -1
+    to_port = 0
+  }
 }
 resource "aws_internet_gateway" "GW" {
   vpc_id = aws_vpc.EC2VPCPIONEER.id
